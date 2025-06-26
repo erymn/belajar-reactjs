@@ -1,8 +1,16 @@
 import { useState } from "react";
 
-function ListGroup() {
-  let items = ["Banyuwangi", "Jakarta", "Jepara", "Surabaya", "Depok"];
+//Pertukaran data antar komponen dengan menggunakan props dibungkus dengan interface
+// [items: [], header: string] --> tipe data dikirim
+interface Props {
+  items: string[];
+  heading: string;
+}
 
+//cara pertama dengan lempar parameter props
+//function ListGroup(props: Props) {
+//cara kedua dengan full param
+function ListGroup({ items, heading }: Props) {
   //Hook, untuk kasih tau react kalau component ini bisa memiliki data
   //arr[0]: variabel
   //arr[1]: updater function
@@ -20,7 +28,7 @@ function ListGroup() {
 
   return (
     <>
-      <h1>List</h1>
+      <h1>{heading}</h1>
       {items.length === 0 && <p>No cities found</p>}
       <ul className="list-group">
         {items.map((item, index) => (
