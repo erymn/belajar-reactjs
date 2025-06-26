@@ -5,12 +5,16 @@ import { useState } from "react";
 interface Props {
   items: string[];
   heading: string;
+
+  // (item: string) => void, untuk lempar/tukar parameter/data ke parent component
+  // penamaan menggunakan on didepannya
+  onSelectItem: (item: string) => void;
 }
 
 //cara pertama dengan lempar parameter props
 //function ListGroup(props: Props) {
 //cara kedua dengan full param
-function ListGroup({ items, heading }: Props) {
+function ListGroup({ items, heading, onSelectItem }: Props) {
   //Hook, untuk kasih tau react kalau component ini bisa memiliki data
   //arr[0]: variabel
   //arr[1]: updater function
@@ -41,6 +45,7 @@ function ListGroup({ items, heading }: Props) {
             key={item}
             onClick={() => {
               setSelectedIndex(index);
+              onSelectItem(item);
             }}
           >
             {item}
