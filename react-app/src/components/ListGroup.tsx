@@ -1,7 +1,14 @@
-import { MouseEvent } from "react";
+import { useState } from "react";
 
 function ListGroup() {
   let items = ["Banyuwangi", "Jakarta", "Jepara", "Surabaya", "Depok"];
+
+  //Hook, untuk kasih tau react kalau component ini bisa memiliki data
+  //arr[0]: variabel
+  //arr[1]: updater function
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+  //contoh lain
+  //const [name, setName] = useState('');
 
   //memakai variable
   //const message = items.length === 0 ? <p>No cities found</p> : null;
@@ -11,18 +18,23 @@ function ListGroup() {
   //     return items.length === 0 ? <p>No cities found</p> : null;
   //   };
 
-  //create onclick event handler
-  const handleClick = (event: MouseEvent) => {
-    console.log(event);
-  };
-
   return (
     <>
       <h1>List</h1>
       {items.length === 0 && <p>No cities found</p>}
       <ul className="list-group">
         {items.map((item, index) => (
-          <li className="list-group-item" key={item} onClick={handleClick}>
+          <li
+            className={
+              selectedIndex === index
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            key={item}
+            onClick={() => {
+              setSelectedIndex(index);
+            }}
+          >
             {item}
           </li>
         ))}
