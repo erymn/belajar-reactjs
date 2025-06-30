@@ -1,4 +1,5 @@
 import Alert from "./components/Alert";
+import Button from "./components/Button";
 //import ListGroup from "./components/ListGroup";
 
 function App() {
@@ -7,6 +8,9 @@ function App() {
       <Alert>
         Hello <strong>World!</strong>
       </Alert>
+      <Button color="danger" onClick={() => console.log("Test Button Clicked")}>
+        Test Button
+      </Button>
     </div>
   );
   // let items = ["Banyuwangi", "Jakarta", "Jepara", "Surabaya", "Depok"];
