@@ -1,14 +1,19 @@
+import { useState } from "react";
 import Alert from "./components/Alert";
 import Button from "./components/Button";
 //import ListGroup from "./components/ListGroup";
 
 function App() {
+  const [alertVisible, setAlertVisibility] = useState(false);
+
   return (
     <div>
-      <Alert>
-        Hello <strong>World!</strong>
-      </Alert>
-      <Button color="danger" onClick={() => console.log("Test Button Clicked")}>
+      {alertVisible && (
+        <Alert onClose={() => setAlertVisibility(false)}>
+          My Dynamic <strong>Alert</strong>
+        </Alert>
+      )}
+      <Button color="danger" onClick={() => setAlertVisibility(true)}>
         Test Button
       </Button>
     </div>
