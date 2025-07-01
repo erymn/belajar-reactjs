@@ -14,7 +14,7 @@ const initialState = {
 // INGA INGA...
 // ...state: akan repopulate initialState
 
-const userReducer = (state = initialState, action) => {
+export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case "USER_LOGGED_IN":
       return {

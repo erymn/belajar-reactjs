@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 
+// store this data from api
+// map the users and list users in the UI
+
 function Users() {
   const getUsers = async () => {
     //dengan keyword await
