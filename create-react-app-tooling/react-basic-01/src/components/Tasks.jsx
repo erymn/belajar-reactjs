@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Task from "./Task";
 
 function Tasks() {
   //hook - useState
@@ -55,16 +56,11 @@ function Tasks() {
 
       {tasks.map((eachTask, index) => {
         return (
-          <div className="task">
-            <input
-              type="checkbox"
-              checked={eachTask.done}
-              onChange={() => handleUpdateTask(index)}
-            />
-            <p>
-              {index + 1}. {eachTask.taskText}
-            </p>
-          </div>
+          <Task
+            eachTask={eachTask}
+            index={index}
+            handleUpdateTask={handleUpdateTask}
+          />
         );
       })}
     </div>
