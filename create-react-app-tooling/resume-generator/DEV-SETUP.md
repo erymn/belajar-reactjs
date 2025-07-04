@@ -127,12 +127,110 @@ Part selanjutnya adalah membuat aplikasi (Part 1) dengan langkah-langkah sebagai
    
    - buat folder `redux`
    
-   - buat file `redux\actions.js`
+   - buat sub folder `redux\actions`
    
-   - buat file `redux\stores.js`
+   - buat file `redux\actions\resumeActions.js`
    
-   - buat file `redux\reducers.js`
+   - buat file `redux\actions\userActions.js`
    
-   ![](assets/2025-07-03-10-51-53-image.png)
-
-4. 
+   - buat sub folder `redux\reducers`
+   
+   - buat file `redux\reducers\resumeReducers.js`
+   
+   - buat file `redux\reducers\userReducers.js`
+   
+   ![](assets/2025-07-03-13-15-09-image.png)
+   
+   buat file rootReducers.js untuk menggabungkan resumeReducers dan userReducers agar bisa diakses secara global.
+   
+   - buat file rootReducers.js
+   
+   - masukkan code seperti dibawah ini:
+     
+     ```jsx
+     import { combineReducers } from "redux";
+     import userReducer from "./reducers/userReducers";
+     import resumeReducer from "./reducers/resumeReducers";
+     
+     const rootReducer = combineReducers({
+       user: userReducer,
+       resume: resumeReducer,
+     });
+     
+     export default rootReducer;
+     ```
+   
+   implement rootReducer ke file stores.js
+   
+   - import library yang diperlukan
+     
+     ```jsx
+     import { applyMiddleware, legacy_createStore } from "redux";
+     import rootReducer from "./rootReducer";
+     import { persistStore, persistReducer } from "redux-persist";
+     import storage from "redux-persist/lib/storage";
+     import {thunk} from "redux-thunk";
+     ```
+   
+   - Tambahkan beberapa line code untuk implementasinya
+     
+     ```jsx
+     const persistConfig = {
+       key: "root",
+       storage: storage,
+       whitelist: ["user", "resume"],
+       blackList: [],
+     };
+     
+     const persistedReducer = persistReducer(persistConfig, rootReducer);
+     
+     const store = legacy_createStore(persistedReducer, applyMiddleware(thunk));
+     
+     let persistor = persistStore(store);
+     export { store, persistor };
+     ```
+   
+   - Buka file index.js
+     
+     supaya store.js bisa diakses secara global, maka lakukan penambahan di index.js. yang perlu ditambahkan adalah:
+     
+     ```jsx
+     import {Provider} from "react-redux";
+     import { PersistGate } from "redux-persist/integration/react"
+     import { store, persistor } from "./redux/stores";
+     ```
+   
+   - Ubah code dari sebelumnya:
+     
+     ```jsx
+     const root = ReactDOM.createRoot(document.getElementById("root"));
+     root.render(
+       <React.StrictMode>
+         <Theme>
+           <App />
+         </Theme>
+       </React.StrictMode>
+     );
+     ```
+     
+     menjadi
+     
+     ```jsx
+     const root = ReactDOM.createRoot(document.getElementById("root"));
+     root.render(
+       <React.StrictMode>
+         <Theme>
+           <Provider store={store}>
+             <PersistGate loading={null} persistor={persistor}>
+               <App />
+             </PersistGate>
+           </Provider>
+         </Theme>
+       </React.StrictMode>
+     ```
+   
+   - Buka Form.jsx dan tambahkan implementasi dari redux
+   
+   - 
+   
+   - 
